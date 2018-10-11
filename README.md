@@ -15,7 +15,7 @@ toolchains.xml example:
   <toolchain>
     <type>jdk</type>
     <provides>
-      <version>1.9</version>
+      <version>11</version>
       <vendor>oracle</vendor>
     </provides>
     <configuration>
