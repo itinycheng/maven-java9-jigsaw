@@ -21,6 +21,18 @@
             <artifactId>fd-java9-jigsaw-algorithm-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>nl.frisodobber</groupId>
+            <artifactId>fd-java9-jigsaw-algorithm-add</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>nl.frisodobber</groupId>
+            <artifactId>fd-java9-jigsaw-algorithm-substract</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

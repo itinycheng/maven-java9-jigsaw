@@ -6,7 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -24,6 +28,10 @@ import java.util.ServiceLoader;
  */
 public class Main extends Application {
     private ServiceLoader<Algorithm> algorithms;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void init() {
@@ -58,30 +66,26 @@ public class Main extends Application {
         grid.add(algorithmLabel, 0, 2);
 
         ObservableList<Algorithm> options = FXCollections.observableArrayList();
-        algorithms.forEach(v -> {
-            options.add(v);
-        });
-        final ComboBox comboBox = new ComboBox(options);
+        algorithms.forEach(options::add);
+        final var comboBox = new ComboBox<>(options);
         grid.add(comboBox, 1, 2);
 
         // Define rendering of the list of values in ComboBox drop down.
-        comboBox.setCellFactory((cb) -> {
-            return new ListCell<Algorithm>() {
-                @Override
-                protected void updateItem(Algorithm item, boolean empty) {
-                    super.updateItem(item, empty);
+        comboBox.setCellFactory((cb) -> new ListCell<>() {
+            @Override
+            protected void updateItem(Algorithm item, boolean empty) {
+                super.updateItem(item, empty);
 
-                    if (item == null || empty) {
-                        setText(null);
-                    } else {
-                        setText(item.getClass().getSimpleName());
-                    }
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item.getClass().getSimpleName());
                 }
-            };
+            }
         });
 
         // Define rendering of selected value shown in ComboBox.
-        comboBox.setConverter(new StringConverter<Algorithm>() {
+        comboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Algorithm al) {
                 if (al == null) {
@@ -93,7 +97,8 @@ public class Main extends Application {
 
             @Override
             public Algorithm fromString(String alString) {
-                return null; // No conversion fromString needed.
+                // No conversion fromString needed.
+                return null;
             }
         });
 
@@ -113,20 +118,16 @@ public class Main extends Application {
         grid.add(hbBtn, 1, 4);
 
         btn.setOnAction((event) -> {
-            Algorithm al = (Algorithm)comboBox.getValue();
+            Algorithm al = comboBox.getValue();
             actiontarget.setFill(Color.FIREBRICK);
             Integer input1 = Integer.valueOf(input1Field.getText());
             Integer input2 = Integer.valueOf(input2Field.getText());
 
-            actiontarget.setText(al.calculate(input1,input2).toString());
+            actiontarget.setText(al.calculate(input1, input2).toString());
         });
 
         Scene scene = new Scene(grid, 300, 275);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

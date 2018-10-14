@@ -19,7 +19,7 @@ toolchains.xml example:
       <vendor>oracle</vendor>
     </provides>
     <configuration>
-      <jdkHome>/path/to/jdk-9</jdkHome>
+      <jdkHome>/path/to/jdk-11</jdkHome>
     </configuration>
   </toolchain>
   <toolchain>
@@ -41,7 +41,7 @@ mvn clean package
 ```
 
 ### Step 3: Run the GUI or CLI
-Your JAVA_HOME should be pointing to jdk9 for this
+Your JAVA_HOME should be pointing to jdk11 for this
 ##### Run GUI
 ```
 java --module-path libs:lib -m calculator.gui/nl.frisodobber.java9.jigsaw.calculator.gui.Main
