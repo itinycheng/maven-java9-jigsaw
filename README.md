@@ -44,11 +44,11 @@ mvn clean package
 Your JAVA_HOME should be pointing to jdk11 for this
 ##### Run GUI
 ```
-java --module-path libs:lib -m calculator.gui/nl.frisodobber.java9.jigsaw.calculator.gui.Main
+java --module-path libs -m calculator.gui/nl.frisodobber.java9.jigsaw.calculator.gui.Main
 ```
 ##### Run CLI
 ``` 
-java --module-path libs:lib -m calculator.cli/nl.frisodobber.java9.jigsaw.calculator.cli.Main
+java --module-path libs -m calculator.cli/nl.frisodobber.java9.jigsaw.calculator.cli.Main
 ```
 
 
