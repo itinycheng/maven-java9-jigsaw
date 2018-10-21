@@ -21,29 +21,41 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import nl.frisodobber.java9.jigsaw.calculator.algorithm.api.Algorithm;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ServiceLoader;
 
 /**
- * Created by dobber on 5-1-17.
+ *
+ * @author dobber
+ * @date 5-1-17
  */
 public class Main extends Application {
-    private ServiceLoader<Algorithm> algorithms;
+    private List<Algorithm> algorithms;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void init() {
+    public void init() throws Exception {
         loadAlgorithms();
     }
 
-    private void loadAlgorithms() {
-        algorithms = ServiceLoader.load(Algorithm.class);
+    private void loadAlgorithms() throws Exception {
+        List<Algorithm> algorithms = new ArrayList<>(3);
+        ServiceLoader<Algorithm> loaded = ServiceLoader.load(Algorithm.class);
+        loaded.forEach(algorithms::add);
+        // new AddTwice(): can not work well because package not export;
+        // visit AddTwice via reflection;
+        Class<?> clazz = Class.forName("nl.frisodobber.java9.jigsaw.calculator.algorithm.add.extension.AddTwice");
+        Object o = clazz.getDeclaredConstructor().newInstance();
+        algorithms.add((Algorithm) o);
+        this.algorithms = algorithms;
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         stage.setTitle("Calculator");
 
         GridPane grid = new GridPane();
